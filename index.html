@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - vue-my-photos demo</title>
+  <link rel='stylesheet' href='https://unpkg.com/vue-my-photos@1.1.1/dist/lightbox.css'><link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div id="app">
+  <h1>vue-my-photos Demo</h1>
+  <div id="filters">
+    <form><fieldset>
+      <legend>Filter</legend>
+      <span>
+        <input type="radio" id="all" 
+          name="filters" checked
+          v-on:click="updateFilter('all')"/>
+        <label for="all">All</label>
+      </span>
+      <span>
+        <input type="radio" id="animals"
+            name="filters" 
+            v-on:click="updateFilter('animals')"/>
+        <label for="animals">Animals</label>
+      </span>
+      <span>
+        <input type="radio" id="natue" 
+           name="filters" 
+           v-on:click="updateFilter('nature')" />
+        <label for="nature">Nature</label>
+      </span>
+    </fieldset></form>
+  </div>
+
+  <transition-group name="thumbnailfade" tag="div">
+    <img v-for="thumb in filteredImages" 
+         :key="thumb.id" 
+         @click="showLightbox(thumb.name)"  
+         :src="thumbnailDir + thumb.name" 
+         :alt="thumb.alt" 
+         :title="thumb.alt" />
+  </transition-group>
+  
+  <lightbox id="mylightbox" 
+      ref="lightbox"
+      :images="images"
+      :directory="thumbnailDir"
+      :filter="galleryFilter"
+      :timeout-duration=5000
+      :close-on-backdrop-click=true
+  />
+</div>
+<!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.min.js'></script>
+<script src='https://unpkg.com/vue-my-photos@1.1.1/dist/lightbox.js'></script><script  src="./script.js"></script>
+
+</body>
+</html>
